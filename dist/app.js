@@ -1,127 +1,110 @@
 'use strict';
-
-// Progressive enhancement: project summaries remain readable without JavaScript.
-document.documentElement.classList.add('js');
-document.querySelector('#year').textContent = new Date().getFullYear();
-
-const navigation = document.querySelector('#navigation');
-const menuToggle = document.querySelector('.menu-toggle');
-function closeMenu() {
-  navigation.classList.remove('is-open');
-  menuToggle.setAttribute('aria-expanded', 'false');
-}
-menuToggle.addEventListener('click', () => {
-  const open = navigation.classList.toggle('is-open');
-  menuToggle.setAttribute('aria-expanded', String(open));
-});
-navigation.addEventListener('click', event => { if (event.target.closest('a')) closeMenu(); });
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
-    closeMenu(); menuToggle.focus();
-  }
-});
-
-document.querySelectorAll('[data-filter]').forEach(button => {
-  button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-    document.querySelectorAll('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    let count = 0;
-    document.querySelectorAll('[data-category]').forEach(project => {
-      project.hidden = filter !== 'all' && project.dataset.category !== filter;
-      if (!project.hidden) count++;
-    });
-    document.querySelector('#filter-status').textContent = `${count} ${count === 1 ? 'project' : 'projects'} shown.`;
+(() => {
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => [...document.querySelectorAll(selector)];
+  const motion = window.portfolioMotion;
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const menu = $('.menu-toggle');
+  const nav = $('#navigation');
+  function closeMenu() { nav.classList.remove('is-open'); menu.setAttribute('aria-expanded', 'false'); }
+  menu.addEventListener('click', () => {
+    const open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('is-open', open);
   });
-});
-
-const projects = {
-  autopilot: {
-    title: 'Autopilot AI', category: 'CREATOR TOOLS / LOCAL AI', status: 'PERSONAL PROJECT · V0.5',
-    intro: 'A local-first workspace for turning raw footage into reviewed video drafts.',
-    sections: [
-      ['The idea', 'Bring drafting, media review and video assembly into a deliberate workflow, while keeping costs and publishing decisions under the creator’s control.'],
-      ['What it does', 'Channel-scoped media previews, scene candidates, explainable clip ranking, creator-written caption cards and approved local MP4 draft assembly. A Next.js interface connects to FastAPI, SQLite and FFmpeg.'],
-      ['Where it stands', 'V0.5 is a local development project. Automatic speech transcription, YouTube uploading and production-ready authentication are not implemented. Its source repository is currently private.']
-    ], tags: ['Next.js', 'TypeScript', 'FastAPI', 'SQLite', 'FFmpeg']
-  },
-  jarvis: {
-    title: 'Project JARVIS', category: 'LOCAL COMPUTING / EXPERIMENT', status: 'EARLY EXPLORATION',
-    intro: 'Exploring what a personal AI assistant can do on a laptop, close to its owner.',
-    sections: [
-      ['The question', 'What would an assistant look like if local ownership, practical hardware limits and extensible skills shaped the design from the start?'],
-      ['The exploration', 'An early personal project on a Windows laptop, focused on learning how models, memory and modular capabilities fit together.'],
-      ['Where it stands', 'This is an exploration, not a finished autonomous assistant. Local models still have context, capability and hardware limits; running locally does not make intelligence unlimited.']
-    ], tags: ['Local AI', 'Windows', 'Personal assistant', 'Prototyping']
-  },
-  omnitrix: {
-    title: 'Omnitrix Simulator', category: 'CREATIVE CODING / INTERFACE', status: 'PERSONAL FAN EXPERIMENT',
-    intro: 'A playful interface experiment inspired by a familiar childhood gadget.',
-    sections: [
-      ['The idea', 'Translate the feeling of a physical transformation device into a browser interface and a set of watch-face visual experiments.'],
-      ['The focus', 'Explore a compact circular interface, distinctive visual states and playful interaction. A small project where the interface itself is the experiment.'],
-      ['Where it stands', 'A personal, unofficial fan-made simulator and visual study. It is not affiliated with the original franchise and does not claim a working smartwatch hardware integration.']
-    ], tags: ['HTML', 'CSS', 'JavaScript', 'Interface experiment']
-  }
-};
-const dialog = document.querySelector('#project-dialog');
-let dialogOpener = null;
-function openProject(key, opener) {
-  const project = projects[key];
-  if (!project) return;
-  dialogOpener = opener;
-  document.querySelector('#dialog-title').textContent = project.title;
-  document.querySelector('#dialog-category').textContent = project.category;
-  document.querySelector('#dialog-intro').textContent = project.intro;
-  document.querySelector('#dialog-status').textContent = project.status;
-  const content = document.querySelector('#dialog-content');
-  content.replaceChildren();
-  project.sections.forEach(([heading, copy]) => {
-    const section = document.createElement('section');
-    section.className = 'dialog-block';
-    const h3 = document.createElement('h3'); h3.textContent = heading;
-    const p = document.createElement('p'); p.textContent = copy;
-    section.append(h3, p); content.append(section);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
   });
-  const tags = document.createElement('div'); tags.className = 'dialog-tags';
-  project.tags.forEach(tag => { const item = document.createElement('span'); item.textContent = tag; tags.append(item); });
-  content.append(tags);
-  dialog.showModal(); document.body.classList.add('modal-open');
-  document.querySelector('#close-dialog').focus();
-}
-document.querySelectorAll('[data-project]').forEach(button => button.addEventListener('click', () => openProject(button.dataset.project, button)));
-document.querySelector('#close-dialog').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', event => {
-  if (event.target !== dialog) return;
-  const box = dialog.getBoundingClientRect();
-  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
-});
-dialog.addEventListener('close', () => {
-  document.body.classList.remove('modal-open');
-  if (dialogOpener?.isConnected) dialogOpener.focus();
-});
-document.querySelector('#dialog-contact').addEventListener('click', () => {
-  dialog.close();
-  // Override focus restoration for a deliberate transition to the contact section.
-  requestAnimationFrame(() => document.querySelector('.email-link').focus({preventScroll:true}));
-});
+  document.addEventListener('click', event => { if (!event.target.closest('.site-header')) closeMenu(); });
+  matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+  $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 
-document.querySelector('#copy-email').addEventListener('click', async () => {
-  const feedback = document.querySelector('#copy-feedback');
-  try {
-    await navigator.clipboard.writeText(document.querySelector('.email-link').textContent.trim());
-    feedback.textContent = 'Email copied. Let’s build something.';
-  } catch {
-    feedback.textContent = 'Copy isn’t available here. Select the email address above, or click it to open your mail app.';
+  // Visibility-based reveals avoid an always-running scroll loop.
+  const reveals = $$('.reveal');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.remove('is-pending'); entry.target.classList.add('is-visible'); observer.unobserve(entry.target);
+    }), { threshold: .05, rootMargin: '0px 0px -20px 0px' });
+    reveals.forEach(el => { if (!motion.paused) el.classList.add('is-pending'); observer.observe(el); });
+    motion.subscribe(paused => { if (paused) reveals.forEach(el => { el.classList.remove('is-pending'); observer.unobserve(el); }); });
   }
-});
 
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-ready'); observer.unobserve(entry.target);
-      }
+  // Coalesce pointer events into one frame. Z planes are defined in CSS.
+  $$('[data-depth]').forEach(scene => {
+    let frame = 0; let nextX = 0; let nextY = 0;
+    const limit = Number(scene.dataset.depthLimit) || 7;
+    function reset() {
+      cancelAnimationFrame(frame); frame = 0; scene.classList.remove('is-pointing');
+      scene.style.setProperty('--rx', '0deg'); scene.style.setProperty('--ry', '0deg');
+      scene.style.setProperty('--lx', '50%'); scene.style.setProperty('--ly', '50%');
+    }
+    scene.addEventListener('pointermove', event => {
+      if (motion.paused || !finePointer.matches || event.pointerType === 'touch') return;
+      const rect = scene.getBoundingClientRect();
+      nextX = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      nextY = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0; scene.classList.add('is-pointing');
+        scene.style.setProperty('--rx', `${(0.5 - nextY) * limit * 2}deg`);
+        scene.style.setProperty('--ry', `${(nextX - 0.5) * limit * 2}deg`);
+        scene.style.setProperty('--lx', `${nextX * 100}%`); scene.style.setProperty('--ly', `${nextY * 100}%`);
+      });
+    }, { passive: true });
+    scene.addEventListener('pointerleave', reset); scene.addEventListener('pointercancel', reset);
+    finePointer.addEventListener('change', reset); motion.subscribe(paused => { if (paused) reset(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) reset(); });
+  });
+  let scrollFrame = 0;
+  function progress() {
+    scrollFrame = 0; const distance = document.documentElement.scrollHeight - innerHeight;
+    document.documentElement.style.setProperty('--read', distance > 0 ? Math.min(1, scrollY / distance) : 0);
+  }
+  function queueProgress() { if (!motion.paused && !scrollFrame) scrollFrame = requestAnimationFrame(progress); }
+  addEventListener('scroll', queueProgress, { passive: true }); addEventListener('resize', queueProgress); progress();
+
+  const search = $('#project-search');
+  if (search) {
+    let category = 'all'; const cards = $$('.project-card');
+    function filter() {
+      const term = search.value.trim().toLowerCase(); let count = 0;
+      cards.forEach(card => {
+        const show = (category === 'all' || card.dataset.category === category) && card.dataset.search.includes(term);
+        card.hidden = !show; if (show) count++;
+      });
+      $('#filter-status').textContent = `${count} ${count === 1 ? 'project' : 'projects'}${term ? ` matching “${search.value.trim()}”` : ''}`;
+      $('#empty-results').hidden = count !== 0;
+    }
+    $$('[data-filter]').forEach(button => button.addEventListener('click', () => {
+      category = button.dataset.filter;
+      $$('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); filter();
+    }));
+    search.addEventListener('input', filter);
+    $('#reset-search').addEventListener('click', () => {
+      search.value = ''; category = 'all';
+      $$('[data-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === 'all')));
+      filter(); search.focus();
     });
-  }, {threshold: .08});
-  document.querySelectorAll('.project, .about-grid, .approach-grid').forEach(element => observer.observe(element));
-}
+  }
+  const range = $('#depth-range');
+  if (range) {
+    const update = () => { $('.lab-depth').style.setProperty('--layer-depth', range.value); $('#depth-value').value = `${range.value}%`; };
+    range.addEventListener('input', update); $('#reset-depth').addEventListener('click', () => { range.value = '65'; update(); }); update();
+  }
+  const copy = $('[data-copy-email]');
+  copy?.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(copy.dataset.copyEmail); $('#copy-feedback').textContent = 'Email address copied.'; }
+    catch { $('#copy-feedback').textContent = 'Copy unavailable. Select the email address above, or open its link.'; }
+  });
+  $('#contact-form')?.addEventListener('submit', event => {
+    event.preventDefault(); const name = $('#contact-name').value.trim(); const message = $('#contact-message').value.trim();
+    if (!name || !message) {
+      $('#form-status').textContent = 'Please add your name and a short message.';
+      (!name ? $('#contact-name') : $('#contact-message')).focus(); return;
+    }
+    const subject = `${$('#contact-topic').value} — ${name}`;
+    const body = `Hi Sahil,\n\n${message}\n\nFrom,\n${name}`;
+    location.href = `mailto:${copy.dataset.copyEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    $('#form-status').textContent = 'Your email app should open a draft. Review and send it there, or use the email link above.';
+  });
+})();

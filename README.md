@@ -1,63 +1,55 @@
-# Sahil Rathod — Builder Atlas
+# Sahil Rathod — Portfolio
 
-A personal developer portfolio made with **HTML, CSS and JavaScript**. No framework, runtime dependencies, build step, trackers, external fonts or API keys.
+A multi-page personal portfolio in **HTML, CSS and vanilla JavaScript**. Original project illustrations, custom Figma artwork, spatial layers, scroll reveals and accessible motion preferences. No framework, runtime packages, trackers, external fonts or API keys.
+
+## Pages
+
+Home, Work, About, Lab, Contact, three individual project stories and a 404 page. These are real HTML documents with direct URLs and browser history. Native view transitions enhance navigation in supporting browsers.
 
 ## Run locally
 
-Open `dist/index.html` directly, or serve the folder for clipboard support:
+The generated pages are committed, so viewing the website needs no npm installation:
 
 ```powershell
 cd web-portfolio
 py -m http.server 8000 --directory dist
 ```
 
-Visit `http://localhost:8000`. On macOS/Linux use `python3` instead of `py`. No npm installation is needed to run the site.
+Open `http://localhost:8000`. Use `python3` on macOS/Linux. Serving the directory enables browser features that may be restricted for directly opened files.
 
-## Files
+## Add photos and projects
 
-| File | Purpose |
-| --- | --- |
-| `dist/index.html` | Content, semantic structure and no-JavaScript project summaries |
-| `dist/styles.css` | Design tokens, responsive layouts and motion preferences |
-| `dist/app.js` | Navigation, project filtering, dialogs and clipboard feedback |
-| `dist/atlas.js` | Original parametric canvas globe with Orbit and Signal modes |
-| `dist/assets/` | Small original SVG brand artwork |
-| `scripts/check.mjs` | Dependency-free static validation |
-| `docs/` | Design decisions, implementation plan, provenance and QA record |
-
-## Customize
-
-Edit your introduction, links and email in `dist/index.html`. Edit expanded project stories in the `projects` object in `dist/app.js` and keep the no-JavaScript summaries in HTML consistent. Change the palette through the CSS variables at the top of `dist/styles.css`.
-
-Contact opens the visitor’s email application. There is no form backend and no message storage. Clipboard failure displays a readable alternative.
-
-## Verification
-
-Requires Node.js 22+ for the development checks only:
+Edit `content/profile.json` for your biography, contact details and portrait. Edit `content/projects.json` for project stories, covers, screenshots and public links. Then rebuild with Node.js 22 or newer:
 
 ```sh
-node --check dist/app.js
-node --check dist/atlas.js
+node scripts/build.mjs
 node scripts/check.mjs
-node --test tests/atlas.test.cjs
+node --test tests/*.test.*
 ```
 
-See `docs/QA.md` for browser checks and limits. Continuous integration repeats these checks on pushes and pull requests.
+Commit the changed content, images and regenerated `dist/` files together. See [the customization guide](docs/CUSTOMIZATION.md) for exact steps.
 
-## Deploy
+| Path | Purpose |
+| --- | --- |
+| `content/` | Editable profile and project data |
+| `scripts/build.mjs` | Shared templates and static page generation |
+| `scripts/content.mjs` | Safe text, asset-path and content validation |
+| `src/*-visual.html` | Original project concept illustrations |
+| `dist/*.html` | Ready-to-host documents |
+| `dist/styles.css`, `dist/art.css` | Layout, responsive behavior and artwork |
+| `dist/app.js` | Menu, search, depth effects and contact interactions |
+| `dist/motion*.js` | Shared motion preference, applied before first paint |
+| `dist/atlas.js` | Canvas globe with offscreen/background suspension |
+| `tests/`, `docs/` | Regression tests, editing instructions and provenance |
 
-Any static host can serve `dist/` as the site root; no build command is required. For GitHub Pages, enable GitHub Actions as the Pages source in repository Settings, then run the included **Deploy GitHub Pages** workflow manually. Availability for private repositories depends on your GitHub plan. The workflow does not make the repository public.
+## Motion and contact
 
-## Content accuracy
+“4D layers” describes CSS 3D planes changing over time, with pointer perspective and moving light. It is not a fourth-dimensional renderer. Touch layouts keep a readable composition; scrolling remains native.
 
-- Autopilot AI is a local personal project. Its V0.5 README was checked on November 19, 2026. It does not automatically upload to YouTube, transcribe speech or provide production authentication.
-- JARVIS is an early exploration, not a finished autonomous assistant.
-- Omnitrix is an unofficial fan-made interface experiment; no franchise affiliation or hardware integration is claimed.
-- The project illustrations are original conceptual compositions, not screenshots of production systems.
-- No invented employers, client endorsements, awards or success metrics are included.
+The motion control persists between pages and respects system reduced-motion preferences. Content and page navigation work without JavaScript. The contact form prepares a draft in the visitor’s email app. It does not send, collect or store messages.
 
-## Repository
+## Deployment and checks
 
-Source: https://github.com/SahilRathod/web-portfolio
+Serve `dist/` from any static host. No remote build is required. CI validates regenerated HTML, script syntax, links, content, image variants and regression tests. GitHub Pages remains optional: select GitHub Actions in Settings → Pages, then manually run **Deploy GitHub Pages**. The existing review site retains its private audience.
 
-The **Check portfolio** workflow validates each push and pull request. GitHub Pages remains an optional, manually triggered deployment; configure it in Settings → Pages before running **Deploy GitHub Pages**.
+See [QA](docs/QA.md), [new asset provenance](docs/ASSETS.md) and [original plugin contributions](docs/DESIGN-PROVENANCE.md). Project descriptions reflect their actual stage; there are no invented employers, awards, client testimonials or usage metrics.

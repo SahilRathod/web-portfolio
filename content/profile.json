@@ -1,0 +1,16 @@
+{
+  "name": "Sahil Rathod",
+  "role": "Full stack developer",
+  "level": "SDE I",
+  "location": "India",
+  "email": "sahilrathod2011@gmail.com",
+  "github": "https://github.com/SahilRathod",
+  "portrait": null,
+  "portraitAlt": "Sahil Rathod",
+  "portraitPosition": "50% 40%",
+  "intro": "I connect thoughtful interfaces with the systems that make them work.",
+  "bio": [
+    "I’m a full stack developer with a builder’s instinct. I like taking an idea apart, understanding what it needs, and turning it into something people can actually use.",
+    "My personal projects move between web interfaces, creator workflows, and experiments with local AI. The interesting part is where they meet: a clear experience on the surface, and deliberate engineering underneath."
+  ]
+}

@@ -3,11 +3,11 @@
 // Original parametric globe. One frame loop, bounded resolution, no libraries.
 (() => {
   const canvas = document.querySelector('#atlas-canvas');
+  if (!canvas) return;
   const context = canvas.getContext('2d');
   if (!context) return;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const toggle = document.querySelector('#motion-toggle');
-  let paused = reducedMotion.matches;
+  const motion = window.portfolioMotion;
+  let paused = motion.paused;
   let visible = true;
   let mode = 'orbit';
   let angle = .35;
@@ -76,7 +76,7 @@
       if(p.z>-.1){context.beginPath();context.arc(p.x,p.y,2.5,0,Math.PI*2);context.fillStyle='#234be8';context.fill();}
     }
   }
-  function shouldRun(){return !paused && !reducedMotion.matches && visible && !document.hidden;}
+  function shouldRun(){return !paused && visible && !document.hidden;}
   function tick(time){
     frame=0;
     if(!shouldRun())return;
@@ -87,23 +87,14 @@
     cancelAnimationFrame(frame);frame=0;lastTime=0;draw();
     if(shouldRun())frame=requestAnimationFrame(tick);
   }
-  function updateControl(){
-    const stopped=paused||reducedMotion.matches;
-    toggle.setAttribute('aria-pressed',String(stopped));
-    toggle.setAttribute('aria-label',reducedMotion.matches?'Animation disabled by reduced motion preference':stopped?'Play animation':'Pause animation');
-    toggle.innerHTML=`<span aria-hidden="true">${stopped?'▶':'II'}</span>`;
-    toggle.disabled=reducedMotion.matches;
-    document.documentElement.classList.toggle('motion-paused',stopped);
-  }
-  toggle.addEventListener('click',()=>{paused=!paused;updateControl();schedule();});
-  reducedMotion.addEventListener('change',()=>{paused=reducedMotion.matches;updateControl();schedule();});
+  motion.subscribe(stopped => { paused = stopped; schedule(); });
   document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{
     mode=button.dataset.mode;
     document.querySelectorAll('[data-mode]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
     draw();
   }));
   canvas.addEventListener('pointermove',event=>{
-    if(paused||reducedMotion.matches)return;
+    if(paused)return;
     const bounds=canvas.getBoundingClientRect();pointerX=(event.clientX-bounds.left)/bounds.width-.5;pointerY=(event.clientY-bounds.top)/bounds.height-.5;
   });
   canvas.addEventListener('pointerleave',()=>{pointerX=0;pointerY=0;});
@@ -117,5 +108,5 @@
   if('ResizeObserver' in window)new ResizeObserver(resize).observe(canvas);else window.addEventListener('resize',resize);
   if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule();},{threshold:0}).observe(canvas);
   document.addEventListener('visibilitychange',schedule);
-  resize();updateControl();schedule();
+  resize();schedule();
 })();

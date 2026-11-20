@@ -1,0 +1,108 @@
+[
+  {
+    "slug": "autopilot-ai",
+    "visual": "autopilot",
+    "name": "Autopilot AI",
+    "category": "software",
+    "eyebrow": "CREATOR TOOLS / LOCAL AI",
+    "status": "PERSONAL PROJECT · V0.5",
+    "summary": "A local-first workspace for turning raw footage into reviewed video drafts.",
+    "intro": "A local-first workspace for turning raw footage into reviewed video drafts.",
+    "focus": "Full stack development · workflow design",
+    "stack": [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "SQLite",
+      "FFmpeg"
+    ],
+    "repository": null,
+    "liveUrl": null,
+    "cover": null,
+    "screenshots": [],
+    "sections": [
+      {
+        "heading": "The idea",
+        "body": "Bring drafting, media review and video assembly into a deliberate workflow, while keeping costs and publishing decisions under the creator’s control."
+      },
+      {
+        "heading": "What it does",
+        "body": "Channel-scoped media previews, scene candidates, explainable clip ranking, creator-written caption cards and approved local MP4 draft assembly. A Next.js interface connects to FastAPI, SQLite and FFmpeg."
+      },
+      {
+        "heading": "Where it stands",
+        "body": "V0.5 is a local development project. Automatic speech transcription, YouTube uploading and production-ready authentication are not implemented. Its source repository is currently private."
+      }
+    ]
+  },
+  {
+    "slug": "jarvis",
+    "visual": "jarvis",
+    "name": "Project JARVIS",
+    "category": "experiments",
+    "eyebrow": "LOCAL COMPUTING / EXPERIMENT",
+    "status": "EARLY EXPLORATION",
+    "summary": "Exploring what a personal AI assistant can do on a laptop, close to its owner.",
+    "intro": "Exploring what a personal AI assistant can do on a laptop, close to its owner.",
+    "focus": "Local AI · modular systems",
+    "stack": [
+      "Local AI",
+      "Windows",
+      "Personal assistant",
+      "Prototyping"
+    ],
+    "repository": null,
+    "liveUrl": null,
+    "cover": null,
+    "screenshots": [],
+    "sections": [
+      {
+        "heading": "The question",
+        "body": "What would an assistant look like if local ownership, practical hardware limits and extensible skills shaped the design from the start?"
+      },
+      {
+        "heading": "The exploration",
+        "body": "An early personal project on a Windows laptop, focused on learning how models, memory and modular capabilities fit together."
+      },
+      {
+        "heading": "Where it stands",
+        "body": "This is an exploration, not a finished autonomous assistant. Local models still have context, capability and hardware limits; running locally does not make intelligence unlimited."
+      }
+    ]
+  },
+  {
+    "slug": "omnitrix-simulator",
+    "visual": "omnitrix",
+    "name": "Omnitrix Simulator",
+    "category": "experiments",
+    "eyebrow": "CREATIVE CODING / INTERFACE",
+    "status": "PERSONAL FAN EXPERIMENT",
+    "summary": "A playful interface experiment inspired by a familiar childhood gadget.",
+    "intro": "A playful interface experiment inspired by a familiar childhood gadget.",
+    "focus": "Creative coding · interaction design",
+    "stack": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Interface experiment"
+    ],
+    "repository": null,
+    "liveUrl": null,
+    "cover": null,
+    "screenshots": [],
+    "sections": [
+      {
+        "heading": "The idea",
+        "body": "Translate the feeling of a physical transformation device into a browser interface and a set of watch-face visual experiments."
+      },
+      {
+        "heading": "The focus",
+        "body": "Explore a compact circular interface, distinctive visual states and playful interaction. A small project where the interface itself is the experiment."
+      },
+      {
+        "heading": "Where it stands",
+        "body": "A personal, unofficial fan-made simulator and visual study. It is not affiliated with the original franchise and does not claim a working smartwatch hardware integration."
+      }
+    ]
+  }
+]

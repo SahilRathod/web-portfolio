@@ -1,24 +1,18 @@
-# Verification — November 19, 2026
+# Verification — November 20, 2026
 
-## Completed
+The multi-page source was reconstructed after workspace maintenance removed an unpushed working copy. Automated checks and the key browser flows were rerun on the restored implementation.
 
-- JavaScript syntax checks for both runtime scripts.
-- Dependency-free source validation: unique IDs, one H1, language declaration, internal anchors, local asset existence, project keys, secure external URLs, no external runtime scripts, static payload under 120 KB.
-- Five Node tests passed: pixel-ratio cap, single animation scheduler, pause/resume, reduced-motion changes, offscreen suspension and background-tab suspension with pause preserved.
-- Chromium desktop preview checked at a 1363px browser viewport. No document horizontal overflow.
-- Embedded mobile viewports checked at 390px and 320px outer widths (375px and 305px usable after scrollbar). No document horizontal overflow at either width.
-- Mobile menu opens and closes after section navigation.
-- Experiment filter displays exactly two projects; All work restores three.
-- JARVIS and Autopilot dialogs render the expected project details. Escape closes the dialog, removes the scroll lock and returns focus to its opening button.
-- Signal mode and animation pause update their accessible pressed states.
-- Copy email reports successful clipboard completion.
-- Corrected decorative glyph rendering and narrow-layout annotation overlap after visual inspection.
+## Automated checks on rebuilt source
+
+- Nine generated documents: five main pages, three project pages and a 404 page.
+- Static checks for unique IDs/titles, one H1 per document, language, descriptions, local links/fragments, configured image paths, image alt text/dimensions and responsive variants.
+- No external runtime scripts. Code and artwork stay within 240 KB / 500 KB source budgets respectively.
+- All 16 Node tests pass: HTML escaping, asset/link validation, duplicate slugs, future project screenshots, stored motion state, blocked storage, system preference priority, subscribers, globe pixel-ratio cap and animation suspension/scheduling.
+
+## Browser recheck on November 20
+
+Desktop and embedded 390px/320px layouts were inspected. Work filters, zero results/reset, real project navigation, persistent pause, depth slider/reset, Signal mode and mobile menu worked. Home, Work, About, Lab, Contact and the Autopilot detail page had no horizontal document overflow in the checked narrow layouts. Pointer perspective, email copying and form validation had also passed during the November 19 implementation review; their logic is retained.
 
 ## Limits
 
-- Safari, Firefox, physical touch devices, screen-reader output and OS-level reduced-motion switching were not tested in the live browser. Reduced-motion scheduling is covered by Node tests; CSS media rules were inspected.
-- No Lighthouse score, accessibility certification, award or global uniqueness claim is made.
-- No live source demo for the private Autopilot AI repository is claimed.
-- Clipboard-denied fallback was reviewed in code but not forced in browser QA.
-- The browser logged extension metadata errors from a chrome-extension URL; these are not application exceptions. No application error appeared in the inspected log sample.
-- The repository was initialized by Sahil. CI results are available in its Actions tab after upload. The optional GitHub Pages workflow has not been run.
+Physical touch devices, Firefox, Safari and screen-reader output were not tested. Reduced-motion scheduling is covered by tests and CSS review rather than a live OS setting change. Native view transitions depend on browser support. No email was sent; launching an external email app was not tested. Clipboard-denied fallback was reviewed in code. No Lighthouse score, accessibility certification, award or global uniqueness guarantee is claimed.

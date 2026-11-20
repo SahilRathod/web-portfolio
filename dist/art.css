@@ -1,0 +1,449 @@
+.project-visual {
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:1.38;
+  border-radius:5px
+}
+
+.autopilot-visual {
+  aspect-ratio:2.18;
+  background:#253fe1;
+  color:#fff;
+  isolation:isolate
+}
+
+.autopilot-visual:before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 25% 100%,#5268ff 0,transparent 60%),linear-gradient(150deg,#273fd900,#08188440)
+}
+
+.visual-top {
+  position:absolute;
+  top:25px;
+  left:28px;
+  right:28px;
+  display:flex;
+  justify-content:space-between;
+  font-size:.65rem;
+  z-index:3
+}
+
+.ap-wordmark {
+  position:absolute;
+  top:22%;
+  left:7%;
+  font-size:clamp(3rem,5.5vw,6rem);
+  letter-spacing:-.07em;
+  font-weight:600
+}
+
+.ap-wordmark>span {
+  display:block;
+  color:#acb7ff;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:1.1em;
+  margin-top:-10px
+}
+
+.dashboard-mock {
+  position:absolute;
+  top:21%;
+  left:36%;
+  width:59%;
+  height:87%;
+  display:flex;
+  border-radius:9px 9px 0 0;
+  background:#f7f8fb;
+  color:#1b2340;
+  box-shadow:-20px 15px 70px #0c1d9a66;
+  transform:rotate(-5deg);
+  transform-origin:center;
+  transition:transform .5s
+}
+
+.autopilot-visual:hover .dashboard-mock {
+  transform:rotate(-2deg) translateY(-8px)
+}
+
+.mock-sidebar {
+  width:23%;
+  background:#eef0f6;
+  border-right:1px solid #e0e3eb;
+  display:flex;
+  flex-direction:column;
+  padding:22px 12px;
+  gap:20px;
+  font-size:.65rem
+}
+
+.mock-sidebar strong {
+  font-size:1.7rem;
+  letter-spacing:-.08em;
+  margin-bottom:12px
+}
+
+.mock-sidebar strong span {
+  font-size:.7rem;
+  vertical-align:top;
+  margin-left:4px
+}
+
+.mock-sidebar .side-active {
+  color:#3244df;
+  font-weight:bold
+}
+
+.mock-side-foot {
+  font-size:.5rem;
+  margin-top:auto;
+  line-height:1.8;
+  letter-spacing:.06em
+}
+
+.mock-main {
+  flex:1;
+  padding:23px 23px
+}
+
+.mock-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1.1rem;
+  font-weight:bold
+}
+
+.mock-heading small {
+  display:block;
+  font-size:.6rem;
+  font-weight:400;
+  color:#7d8295;
+  margin-top:7px
+}
+
+.mock-chip {
+  font-size:.5rem;
+  background:#e4e8f9;
+  color:#3954b3;
+  padding:7px;
+  border-radius:3px;
+  font-weight:400
+}
+
+.mock-preview {
+  position:relative;
+  aspect-ratio:2;
+  margin-top:23px;
+  border-radius:4px;
+  overflow:hidden;
+  background:linear-gradient(#94b9bb,#c9d8d1 60%,#172d25 61%)
+}
+
+.landscape-shape {
+  position:absolute;
+  inset:20% -10% -20%;
+  background:#345c53;
+  clip-path:polygon(0 80%,14% 50%,22% 67%,35% 10%,47% 45%,54% 20%,68% 69%,81% 32%,100% 80%,100% 100%,0 100%)
+}
+
+.landscape-shape:after {
+  content:'';
+  position:absolute;
+  inset:35% 0 0;
+  background:#1b3731;
+  clip-path:polygon(0 80%,30% 20%,65% 80%,80% 10%,100% 60%,100% 100%,0 100%)
+}
+
+.play-shape {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  display:grid;
+  place-items:center;
+  width:35px;
+  height:35px;
+  background:#ffffffdc;
+  border-radius:50%;
+  font-size:.7rem;
+  padding-left:2px
+}
+
+.preview-label {
+  position:absolute;
+  bottom:9px;
+  left:12px;
+  font-family:var(--mono);
+  font-size:.5rem;
+  letter-spacing:.1em;
+  color:white
+}
+
+.mock-timeline {
+  display:flex;
+  position:relative;
+  height:32px;
+  gap:4px;
+  margin-top:20px
+}
+
+.mock-timeline i {
+  flex:1;
+  border-radius:2px;
+  background:repeating-linear-gradient(90deg,#b2c2ac 0 4px,#8d9c8d 4px 5px);
+  border:2px solid #a6b8b2
+}
+
+.mock-timeline i:nth-child(even) {
+  background:#9caca2
+}
+
+.mock-timeline span {
+  position:absolute;
+  left:30%;
+  width:2px;
+  top:-5px;
+  bottom:-5px;
+  background:#3c49ef
+}
+
+.mock-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:17px;
+  font-size:.55rem;
+  color:#818699
+}
+
+.mock-bottom b {
+  background:#3448dd;
+  color:white;
+  padding:8px;
+  font-weight:400;
+  border-radius:3px
+}
+
+.visual-caption {
+  position:absolute;
+  left:28px;
+  bottom:22px;
+  font-size:.6rem
+}
+
+.project-info {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding-top:23px
+}
+
+.project-category {
+  font-size:.65rem;
+  color:var(--muted);
+  margin-bottom:10px
+}
+
+.project-info h3 {
+  font-size:1.8rem;
+  font-weight:500;
+  letter-spacing:-.04em;
+  margin-bottom:9px
+}
+
+.project-info p {
+  font-size:.9rem;
+  color:var(--muted);
+  line-height:1.6
+}
+
+.project-open {
+  flex-shrink:0;
+  width:50px;
+  height:50px;
+  border:1px solid #b5baaf;
+  border-radius:50%;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  font-size:1.5rem;
+  transition:background .2s,color .2s,transform .2s
+}
+
+.project-open:hover {
+  background:var(--ink);
+  color:white;
+  transform:rotate(45deg)
+}
+
+.project-fallback {
+  margin-top:20px;
+  line-height:1.6;
+  font-size:.9rem
+}
+
+.project-fallback summary {
+  padding:12px 0;
+  cursor:pointer
+}
+
+.jarvis-visual {
+  background:#dfee9a
+}
+
+.jarvis-core {
+  position:absolute;
+  inset:16% 23% 18%;
+  display:grid;
+  place-items:center
+}
+
+.jarvis-core>span {
+  font-size:5.7rem;
+  letter-spacing:-.1em;
+  font-weight:500;
+  margin-left:-.1em
+}
+
+.core-ring {
+  position:absolute;
+  border:1px solid #72894670;
+  border-radius:50%;
+  inset:0
+}
+
+.ring-two {
+  inset:9%;
+  border-style:dashed;
+  transform:rotate(30deg)
+}
+
+.ring-three {
+  inset:18%;
+  border:18px solid #283929;
+  box-shadow:0 0 0 7px #ceec7d,0 0 0 8px #7f9f4b
+}
+
+.ring-one:before,.ring-one:after {
+  content:'';
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#243723;
+  left:48%;
+  top:-4px
+}
+
+.ring-one:after {
+  left:auto;
+  right:-4px;
+  top:48%
+}
+
+.terminal-note {
+  position:absolute;
+  left:28px;
+  bottom:25px
+}
+
+.terminal-note>span {
+  font-size:.95rem
+}
+
+.terminal-note small {
+  display:block;
+  margin-top:8px;
+  font-size:.6rem;
+  opacity:.7
+}
+
+.omnitrix-visual {
+  background:#ded8ee
+}
+
+.watch {
+  position:absolute;
+  width:62%;
+  height:115%;
+  left:20%;
+  top:-8%;
+  transform:rotate(27deg);
+  display:grid;
+  place-items:center
+}
+
+.watch-strap {
+  position:absolute;
+  left:31%;
+  right:31%;
+  top:0;
+  bottom:0;
+  background:repeating-linear-gradient(0deg,#191e1c 0 12px,#363c38 12px 14px);
+  border-inline:7px solid #2d322f;
+  border-radius:12px
+}
+
+.watch-case {
+  width:84%;
+  aspect-ratio:1;
+  position:relative;
+  border:12px solid #282e2b;
+  border-radius:37%;
+  background:linear-gradient(140deg,#7b8580,#262c28 60%);
+  box-shadow:10px 15px 20px #35324950,inset 0 0 0 3px #9da39f;
+  display:grid;
+  place-items:center
+}
+
+.watch-face {
+  width:75%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:7px solid #171e17;
+  background:#a4ec48;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 0 7px #3c443e,inset 0 0 18px #34531b70;
+  position:relative
+}
+
+.watch-symbol {
+  width:60%;
+  height:64%;
+  background:#1b251c;
+  clip-path:polygon(0 0,100% 0,66% 50%,100% 100%,0 100%,34% 50%)
+}
+
+.watch-face span {
+  position:absolute;
+  bottom:8%;
+  font-size:.43rem;
+  letter-spacing:.14em
+}
+
+/* Keep concept artwork composed at narrow widths. */
+@media (max-width:760px) {
+  .project-card .autopilot-visual { aspect-ratio: 1.5; }
+  .ap-wordmark { font-size: 36px; }
+  .visual-top { top: 17px; left: 18px; right: 18px; font-size: 8px; }
+  .visual-caption,.terminal-note { left: 18px; bottom: 18px; font-size: 8px; }
+  .autopilot-visual .visual-caption { max-width: 95px; }
+  .dashboard-mock { left: 32%; width: 65%; top: 25%; }
+  .mock-sidebar { padding: 12px 7px; gap: 10px; font-size: 7px; }
+  .mock-sidebar strong { font-size: 22px; margin-bottom: 4px; }
+  .mock-side-foot { font-size: 5px; }
+  .mock-main { padding: 14px 10px; }
+  .mock-heading { font-size: 12px; } .mock-heading small { font-size: 7px; }
+  .mock-chip { display: none; } .mock-preview { margin-top: 12px; }
+  .mock-timeline { height: 20px; margin-top: 10px; }
+  .mock-bottom { font-size: 6px; margin-top: 7px; } .mock-bottom b { padding: 5px; }
+  .terminal-note>span { font-size: 12px; } .terminal-note small { font-size: 8px; }
+  .ring-three { border-width: 12px; } .jarvis-core>span { font-size: 62px; }
+}
