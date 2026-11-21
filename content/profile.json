@@ -2,15 +2,54 @@
   "name": "Sahil Rathod",
   "role": "Full stack developer",
   "level": "SDE I",
-  "location": "India",
-  "email": "sahilrathod2011@gmail.com",
+  "location": "Rajkot, India",
+  "email": "dev.sahilrathod@gmail.com",
   "github": "https://github.com/SahilRathod",
   "portrait": null,
   "portraitAlt": "Sahil Rathod",
   "portraitPosition": "50% 40%",
-  "intro": "I connect thoughtful interfaces with the systems that make them work.",
+  "intro": "I build the interface. Connect the logic. Care about everything in between.",
   "bio": [
-    "I’m a full stack developer with a builder’s instinct. I like taking an idea apart, understanding what it needs, and turning it into something people can actually use.",
-    "My personal projects move between web interfaces, creator workflows, and experiments with local AI. The interesting part is where they meet: a clear experience on the surface, and deliberate engineering underneath."
+    "I’m Sahil, a full stack developer based in Rajkot, India. I work with Angular, .NET and SQL to make complex applications clearer, more reliable and easier to maintain.",
+    "At Multiicon Ideotechnology, I contribute to Bonton Holidays across its Angular frontend and .NET backend. My work includes refactoring legacy code, improving form validation, aligning API contracts and debugging production issues.",
+    "Before software, I led a four-person customer support team. That experience still shapes how I build: listen carefully, understand the problem and make the next step easier for someone else."
+  ],
+  "linkedin": "https://linkedin.com/in/sahil-rathod-9974a8214",
+  "experience": [
+    {
+      "company": "Multiicon Ideotechnology",
+      "role": "Full-Stack Web Developer",
+      "dates": "May 2025 — Present",
+      "body": "Contributing to Bonton Holidays across Angular and .NET/C#. Refactoring legacy components and APIs, improving state and form validation, aligning API contracts and resolving production issues.",
+      "tags": [
+        "Angular",
+        ".NET / C#",
+        "REST APIs",
+        "SOLID / DRY"
+      ]
+    },
+    {
+      "company": "Truesys Fintech",
+      "role": "Front-End Web Developer",
+      "dates": "Mar 2024 — May 2025",
+      "body": "Built Angular components, directives and services; integrated REST APIs and managed reactive state with RxJS. Also worked with SQL queries, stored procedures, transactions and basic .NET API controllers.",
+      "tags": [
+        "Angular",
+        "TypeScript",
+        "RxJS",
+        "MSSQL"
+      ]
+    },
+    {
+      "company": "Ravi Computer Consultancy",
+      "role": "Lead of Customer Support",
+      "dates": "Jul 2021 — Feb 2024",
+      "body": "Led four service representatives, trained team members, managed customer complaints and developed support procedures and monthly reports.",
+      "tags": [
+        "Team leadership",
+        "Customer experience",
+        "Problem solving"
+      ]
+    }
   ]
 }

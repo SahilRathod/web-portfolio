@@ -30,9 +30,15 @@ for (const file of readdirSync(root).filter(f=>/\.(css|js)$/.test(f))) {
   if (file.endsWith('.css')) for (const [,ref] of readFileSync(resolve(root,file),'utf8').matchAll(/url\(['"]?([^'")]+)['"]?\)/g)) checkReference(ref,file);
 }
 for (const path of [profile.portrait,...projects.flatMap(p=>[p.cover,...p.screenshots.map(s=>s.src)])].filter(Boolean)) assert.ok(existsSync(resolve(root,path)),`Missing configured asset ${path}`);
-assert.equal(pages.length,projects.length+6);
-assert.ok(codeBytes<240_000,`Code budget exceeded: ${codeBytes}`);
+assert.equal(pages.length,projects.length+7);
+assert.ok(codeBytes<300_000,`Code budget exceeded: ${codeBytes}`);
 const imageBytes = readdirSync(resolve(root,'assets/art')).reduce((sum,f)=>sum+statSync(resolve(root,'assets/art',f)).size,0);
 assert.ok(imageBytes<500_000,`Artwork budget exceeded: ${imageBytes}`);
 assert.ok(!existsSync(resolve(root,'qa.html')),'Remove temporary QA host before publishing');
 console.log(`PASS: ${pages.length} pages; IDs, titles, assets, fragments, image variants, content; ${codeBytes} B code, ${imageBytes} B artwork.`);
+
+const vendorBytes = readdirSync(resolve(root,'vendor')).reduce((s,f)=>s+statSync(resolve(root,'vendor',f)).size,0);
+assert.ok(vendorBytes<900_000,`Vendor budget exceeded: ${vendorBytes}`);
+const fontBytes = readdirSync(resolve(root,'assets/fonts')).reduce((s,f)=>s+statSync(resolve(root,'assets/fonts',f)).size,0);
+assert.ok(fontBytes<150_000,`Font budget exceeded: ${fontBytes}`);
+console.log(`Vendor: ${vendorBytes} B; fonts and notices: ${fontBytes} B. All local.`);

@@ -1,5 +1,44 @@
 [
   {
+    "slug": "bonton-holidays",
+    "visual": "bonton",
+    "name": "Bonton Holidays",
+    "category": "professional",
+    "eyebrow": "Professional contribution · Multiicon",
+    "status": "Ongoing contribution · May 2025–present",
+    "summary": "Making a travel platform clearer on the surface and stronger underneath.",
+    "intro": "Full stack development on Bonton Holidays at Multiicon Ideotechnology, connecting Angular interfaces with .NET/C# services.",
+    "focus": "Legacy modernization & full stack development",
+    "stack": [
+      "Angular",
+      "TypeScript",
+      ".NET / C#",
+      "REST APIs"
+    ],
+    "repository": null,
+    "liveUrl": null,
+    "cover": null,
+    "screenshots": [],
+    "sections": [
+      {
+        "heading": "The context",
+        "body": "An existing travel platform needs to keep evolving while remaining maintainable. My contribution spans its Angular frontend and .NET/C# backend as part of the team at Multiicon Ideotechnology."
+      },
+      {
+        "heading": "My contribution",
+        "body": "I refactor legacy components, services and API structures to reduce redundancy and improve clarity. On the frontend, this includes component structure, state handling and form validation. Across the stack, I work with colleagues to align API contracts and UI behavior."
+      },
+      {
+        "heading": "How I approach it",
+        "body": "Understand the existing behavior, isolate the change and review its effect across the interface and API. I apply SOLID and DRY principles, participate in code reviews and help debug production issues."
+      },
+      {
+        "heading": "A note on the visuals",
+        "body": "The artwork on this page is an original conceptual travel interface created for this portfolio. It is not a production screenshot. Employer code, internal data and unverified performance results are not included."
+      }
+    ]
+  },
+  {
     "slug": "autopilot-ai",
     "visual": "autopilot",
     "name": "Autopilot AI",

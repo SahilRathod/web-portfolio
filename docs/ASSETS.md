@@ -24,3 +24,15 @@ The original plugin contributions and limitations remain in `DESIGN-PROVENANCE.m
 Cross-document navigation was checked against [Chrome’s official View Transitions documentation](https://developer.chrome.com/docs/web-platform/view-transitions/cross-document). The transition is progressive enhancement. Independent developer portfolios inspected for conventions: https://ayushetty.me/projects/portfolio , https://itomdev.com/ , https://www.vandeblaak.com/portfolio/?lang=en . This layout was composed independently.
 
 “4D” is interpreted as independent spatial layers plus time: perspective tilt, floating foreground annotations, moving light, scroll reveals and an interactive depth study. It is not a literal fourth-dimensional renderer. System reduced-motion preference takes priority; visitors can pause motion across pages.
+
+## November 2026 résumé redesign
+
+- Original procedural knot, orbit and polyhedral geometry built with Three.js; shared scene supports WebGL and an original Canvas 2D triangle renderer.
+- Original Bonton travel concept composed in HTML/CSS. It is explicitly an illustration, not an employer screenshot.
+- Space Grotesk variable font: https://github.com/google/fonts/tree/main/ofl/spacegrotesk
+- Manrope variable font: https://github.com/google/fonts/tree/main/ofl/manrope
+- Both converted to WOFF2 from the official variable font distributions; SIL OFL notices included in `dist/assets/fonts/`.
+- Three.js 0.180.0: official npm distribution mirrored by jsDelivr; MIT notice in `dist/vendor/`.
+- GSAP and ScrollTrigger 3.13.0: official npm distribution mirrored by jsDelivr; original header notices retained and license link included in `GSAP-NOTICE.txt`.
+- Design research: https://dennissnellenberg.com/ (clear portfolio navigation), https://lusion.co/ (motion-led storytelling), https://bruno-simon.com/ (interactive 3D with controls). These informed principles; no layouts or protected visual assets were copied.
+- Prior Figma-created sculpture remains the first-paint/no-JavaScript fallback. Mobbin access remained unavailable under the connected subscription; no Mobbin assets were downloaded or claimed.

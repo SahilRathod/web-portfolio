@@ -39,3 +39,11 @@ The builder creates the page, updates Home/Work and next-project links, and remo
 ## Design
 
 Colors are CSS variables at the top of `dist/styles.css`. Templates live in `scripts/build.mjs`; interactions are in `dist/app.js`. Figma is only a design source, not a runtime dependency. Never place plugin credentials or account tokens in this repository.
+
+## Résumé and professional work
+
+The `experience` array in `content/profile.json` now populates the Experience page. Each entry has `company`, `role`, `dates`, `body` and `tags`. The profile includes the professional email and LinkedIn URL supplied in the résumé. Street address and phone are not published.
+
+Project `category` accepts `professional`, `software` or `experiments`. `visual` also accepts `bonton`. Set `cover` to your own local image to replace conceptual artwork. For a new project, choose `visual: "custom"`, a unique slug and a real description. Avoid including confidential employer code or data.
+
+Typography, page layout and breakpoint rules are in `dist/styles.css`. Runtime animation lives in `dist/app.js` and `dist/sculpture.js`; these files are authored directly and are not overwritten by the HTML build.

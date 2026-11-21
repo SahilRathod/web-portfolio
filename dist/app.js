@@ -1,110 +1,31 @@
 'use strict';
-(() => {
-  const $ = selector => document.querySelector(selector);
-  const $$ = selector => [...document.querySelectorAll(selector)];
-  const motion = window.portfolioMotion;
-  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
-  const menu = $('.menu-toggle');
-  const nav = $('#navigation');
-  function closeMenu() { nav.classList.remove('is-open'); menu.setAttribute('aria-expanded', 'false'); }
-  menu.addEventListener('click', () => {
-    const open = menu.getAttribute('aria-expanded') !== 'true';
-    menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('is-open', open);
-  });
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
-  });
-  document.addEventListener('click', event => { if (!event.target.closest('.site-header')) closeMenu(); });
-  matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
-  $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
-
-  // Visibility-based reveals avoid an always-running scroll loop.
-  const reveals = $$('.reveal');
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.remove('is-pending'); entry.target.classList.add('is-visible'); observer.unobserve(entry.target);
-    }), { threshold: .05, rootMargin: '0px 0px -20px 0px' });
-    reveals.forEach(el => { if (!motion.paused) el.classList.add('is-pending'); observer.observe(el); });
-    motion.subscribe(paused => { if (paused) reveals.forEach(el => { el.classList.remove('is-pending'); observer.unobserve(el); }); });
-  }
-
-  // Coalesce pointer events into one frame. Z planes are defined in CSS.
-  $$('[data-depth]').forEach(scene => {
-    let frame = 0; let nextX = 0; let nextY = 0;
-    const limit = Number(scene.dataset.depthLimit) || 7;
-    function reset() {
-      cancelAnimationFrame(frame); frame = 0; scene.classList.remove('is-pointing');
-      scene.style.setProperty('--rx', '0deg'); scene.style.setProperty('--ry', '0deg');
-      scene.style.setProperty('--lx', '50%'); scene.style.setProperty('--ly', '50%');
-    }
-    scene.addEventListener('pointermove', event => {
-      if (motion.paused || !finePointer.matches || event.pointerType === 'touch') return;
-      const rect = scene.getBoundingClientRect();
-      nextX = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-      nextY = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0; scene.classList.add('is-pointing');
-        scene.style.setProperty('--rx', `${(0.5 - nextY) * limit * 2}deg`);
-        scene.style.setProperty('--ry', `${(nextX - 0.5) * limit * 2}deg`);
-        scene.style.setProperty('--lx', `${nextX * 100}%`); scene.style.setProperty('--ly', `${nextY * 100}%`);
-      });
-    }, { passive: true });
-    scene.addEventListener('pointerleave', reset); scene.addEventListener('pointercancel', reset);
-    finePointer.addEventListener('change', reset); motion.subscribe(paused => { if (paused) reset(); });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) reset(); });
-  });
-  let scrollFrame = 0;
-  function progress() {
-    scrollFrame = 0; const distance = document.documentElement.scrollHeight - innerHeight;
-    document.documentElement.style.setProperty('--read', distance > 0 ? Math.min(1, scrollY / distance) : 0);
-  }
-  function queueProgress() { if (!motion.paused && !scrollFrame) scrollFrame = requestAnimationFrame(progress); }
-  addEventListener('scroll', queueProgress, { passive: true }); addEventListener('resize', queueProgress); progress();
-
-  const search = $('#project-search');
-  if (search) {
-    let category = 'all'; const cards = $$('.project-card');
-    function filter() {
-      const term = search.value.trim().toLowerCase(); let count = 0;
-      cards.forEach(card => {
-        const show = (category === 'all' || card.dataset.category === category) && card.dataset.search.includes(term);
-        card.hidden = !show; if (show) count++;
-      });
-      $('#filter-status').textContent = `${count} ${count === 1 ? 'project' : 'projects'}${term ? ` matching “${search.value.trim()}”` : ''}`;
-      $('#empty-results').hidden = count !== 0;
-    }
-    $$('[data-filter]').forEach(button => button.addEventListener('click', () => {
-      category = button.dataset.filter;
-      $$('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); filter();
-    }));
-    search.addEventListener('input', filter);
-    $('#reset-search').addEventListener('click', () => {
-      search.value = ''; category = 'all';
-      $$('[data-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === 'all')));
-      filter(); search.focus();
-    });
-  }
-  const range = $('#depth-range');
-  if (range) {
-    const update = () => { $('.lab-depth').style.setProperty('--layer-depth', range.value); $('#depth-value').value = `${range.value}%`; };
-    range.addEventListener('input', update); $('#reset-depth').addEventListener('click', () => { range.value = '65'; update(); }); update();
-  }
-  const copy = $('[data-copy-email]');
-  copy?.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(copy.dataset.copyEmail); $('#copy-feedback').textContent = 'Email address copied.'; }
-    catch { $('#copy-feedback').textContent = 'Copy unavailable. Select the email address above, or open its link.'; }
-  });
-  $('#contact-form')?.addEventListener('submit', event => {
-    event.preventDefault(); const name = $('#contact-name').value.trim(); const message = $('#contact-message').value.trim();
-    if (!name || !message) {
-      $('#form-status').textContent = 'Please add your name and a short message.';
-      (!name ? $('#contact-name') : $('#contact-message')).focus(); return;
-    }
-    const subject = `${$('#contact-topic').value} — ${name}`;
-    const body = `Hi Sahil,\n\n${message}\n\nFrom,\n${name}`;
-    location.href = `mailto:${copy.dataset.copyEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    $('#form-status').textContent = 'Your email app should open a draft. Review and send it there, or use the email link above.';
-  });
+(()=>{
+ const q=(s)=>document.querySelector(s),qa=(s)=>[...document.querySelectorAll(s)];
+ const menu=q('.menu-toggle'),nav=q('#navigation');
+ function closeMenu(){nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.textContent='Menu';document.body.classList.remove('menu-open');q('main').inert=false;q('footer').inert=false;}
+ menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';nav.classList.toggle('is-open',open);menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'Close':'Menu';document.body.classList.toggle('menu-open',open);q('main').inert=open;q('footer').inert=open;});
+ document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&nav.classList.contains('is-open')){closeMenu();menu.focus();}});matchMedia('(min-width:761px)').addEventListener('change',ev=>{if(ev.matches)closeMenu();});
+ const progress=q('.read-progress');let scheduled=false;function readProgress(){scheduled=false;const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%';}addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(readProgress);}},{passive:true});readProgress();
+ const cards=qa('[data-category]'),search=q('#project-search');let filter='all';
+ function filterProjects(){const term=(search?.value||'').trim().toLowerCase();let n=0;cards.forEach(card=>{const match=(filter==='all'||filter===card.dataset.category)&&card.dataset.search.includes(term);card.hidden=!match;if(match)n++;});q('#filter-status').textContent=`${n} ${n===1?'project':'projects'}`;q('#empty-results').hidden=n>0;window.ScrollTrigger?.refresh();}
+ qa('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;qa('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));filterProjects();}));search?.addEventListener('input',filterProjects);q('#reset-search')?.addEventListener('click',()=>{search.value='';filter='all';qa('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.filter==='all')));filterProjects();search.focus();});
+ q('[data-copy-email]')?.addEventListener('click',async ev=>{try{await navigator.clipboard.writeText(ev.currentTarget.dataset.copyEmail);q('#copy-feedback').textContent='Email copied.';}catch{q('#copy-feedback').textContent='Select the email address above to copy it.';}});
+ q('#contact-form')?.addEventListener('submit',ev=>{ev.preventDefault();if(!ev.currentTarget.reportValidity())return;const email=q('[data-copy-email]').dataset.copyEmail,name=q('#contact-name').value.trim(),topic=q('#contact-topic').value,message=q('#contact-message').value.trim();if(!name||!message){q('#form-status').textContent='Please add your name and a little context.';return;}location.href=`mailto:${email}?subject=${encodeURIComponent(topic+' — '+name)}&body=${encodeURIComponent('Hi Sahil,\n\n'+message+'\n\n'+name)}`;q('#form-status').textContent='Your email draft is ready. If no app opened, use the email address above.';});
+ // One reversible animation context makes pausing reveal all content and removes scroll pinning.
+ if(!window.gsap||!window.ScrollTrigger)return;const {gsap,ScrollTrigger}=window;gsap.registerPlugin(ScrollTrigger);let context=null,first=true;
+ function motion(paused){context?.revert();context=null;if(paused)return;
+  context=gsap.context(()=>{
+   if(first){gsap.from('.title-line',{yPercent:80,opacity:0,rotate:3,duration:1.2,stagger:.11,ease:'power4.out'});gsap.from('.hero-intro,.hero-top,.page-intro,.case-intro,.contact-page>div,.lab-heading',{y:25,opacity:0,duration:.9,delay:.15,ease:'power3.out'});first=false;}
+   gsap.utils.toArray('.section-heading,.about-teaser>div,.career,.story-block,.values-grid article,.about-story').forEach(el=>gsap.from(el,{y:45,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}}));
+   const desktop=matchMedia('(min-width:900px)').matches;
+   if(q('.stack-story')&&desktop){const t=gsap.timeline({scrollTrigger:{trigger:'.stack-story',start:'top top',end:'+=1500',scrub:1,pin:'.stack-pin',anticipatePin:1,invalidateOnRefresh:true}});
+    t.fromTo('.stack-assembly',{rotateZ:-27,rotateX:52},{rotateZ:-12,rotateX:35,duration:3},0)
+     .to('.ui-plane',{z:230,y:-125,duration:2},0).to('.data-plane',{z:-230,y:125,duration:2},0)
+     .fromTo('[data-stack-step="1"],[data-stack-step="2"]',{opacity:.28},{opacity:1,stagger:1,duration:.7},.5)
+     .to('.ui-plane',{z:100,y:-85,duration:1},3).to('.data-plane',{z:-100,y:85,duration:1},3);
+   }
+   if(desktop){gsap.to('.selected-grid .project-card:nth-child(2)',{y:-65,ease:'none',scrollTrigger:{trigger:'.selected-grid',start:'top bottom',end:'bottom top',scrub:1}});gsap.to('.signature-art',{rotate:7,ease:'none',scrollTrigger:{trigger:'.about-teaser',start:'top bottom',end:'bottom top',scrub:1}});}
+  });ScrollTrigger.refresh();
+ }
+ window.portfolioMotion?.subscribe(motion);let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>motion(window.portfolioMotion?.paused),250);});document.fonts.ready.then(()=>ScrollTrigger.refresh());
 })();

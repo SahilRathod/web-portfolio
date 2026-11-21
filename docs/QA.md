@@ -1,18 +1,28 @@
-# Verification — November 20, 2026
+# Validation — résumé-driven redesign
 
-The multi-page source was reconstructed after workspace maintenance removed an unpushed working copy. Automated checks and the key browser flows were rerun on the restored implementation.
+## Automated
 
-## Automated checks on rebuilt source
+- Deterministic HTML build: 11 pages, unique titles and primary headings.
+- Internal links, image dimensions/alt text, asset references, project slugs and content validated.
+- Script syntax checks for authored runtime modules.
+- Content-safety tests, shared motion tests, legacy atlas regression tests and software-renderer tests.
+- The software-renderer regression explicitly verifies that consecutive material changes draw immediately while motion is paused.
 
-- Nine generated documents: five main pages, three project pages and a 404 page.
-- Static checks for unique IDs/titles, one H1 per document, language, descriptions, local links/fragments, configured image paths, image alt text/dimensions and responsive variants.
-- No external runtime scripts. Code and artwork stay within 240 KB / 500 KB source budgets respectively.
-- All 16 Node tests pass: HTML escaping, asset/link validation, duplicate slugs, future project screenshots, stored motion state, blocked storage, system preference priority, subscribers, globe pixel-ratio cap and animation suspension/scheduling.
+## Browser review
 
-## Browser recheck on November 20
+Reviewed in the managed Chrome preview on 21 November 2026:
 
-Desktop and embedded 390px/320px layouts were inspected. Work filters, zero results/reset, real project navigation, persistent pause, depth slider/reset, Signal mode and mobile menu worked. Home, Work, About, Lab, Contact and the Autopilot detail page had no horizontal document overflow in the checked narrow layouts. Pointer perspective, email copying and form validation had also passed during the November 19 implementation review; their logic is retained.
+- Desktop home composition and project presentation.
+- Pinned stack sequence observed at multiple scroll positions: plane orientation, separation and text emphasis changed with scroll.
+- Pause persisted when moving from Home to Lab; resuming removed the paused state.
+- Lab geometry, material and separation updated visually; reset restored all defaults.
+- Work professional filter yielded one project; unmatched search showed empty state; reset restored four projects.
+- Mobile menu opened and navigated to Experience at a 390px frame width.
+- Home, Work, Experience, About, Lab and Contact reviewed in the mobile frame. Contact settled at equal document/client width (375px excluding scrollbar); transition-time snapshots can temporarily include the scrollbar width.
+- New page console logs contained no application errors after the WebGL capability fallback was added; browser-extension metadata warnings are external to the app.
 
-## Limits
+## Verification limits
 
-Physical touch devices, Firefox, Safari and screen-reader output were not tested. Reduced-motion scheduling is covered by tests and CSS review rather than a live OS setting change. Native view transitions depend on browser support. No email was sent; launching an external email app was not tested. Clipboard-denied fallback was reviewed in code. No Lighthouse score, accessibility certification, award or global uniqueness guarantee is claimed.
+This browser has WebGL disabled. The live software-rendered 3D path was exercised. The hardware WebGL path uses the same geometry and state, but its GPU rendering has not been visually verified in this environment. It should be checked on a WebGL2-capable device before claiming complete cross-device coverage.
+
+Mobile review used a narrow browser iframe, not a physical phone. OS reduced-motion and blocked-storage behavior are covered by unit tests; no blanket accessibility certification or Lighthouse score is claimed. Contact draft behavior is implemented with `mailto:` and no message was sent.
