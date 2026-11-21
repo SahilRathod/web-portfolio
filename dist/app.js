@@ -13,18 +13,31 @@
  q('#contact-form')?.addEventListener('submit',ev=>{ev.preventDefault();if(!ev.currentTarget.reportValidity())return;const email=q('[data-copy-email]').dataset.copyEmail,name=q('#contact-name').value.trim(),topic=q('#contact-topic').value,message=q('#contact-message').value.trim();if(!name||!message){q('#form-status').textContent='Please add your name and a little context.';return;}location.href=`mailto:${email}?subject=${encodeURIComponent(topic+' — '+name)}&body=${encodeURIComponent('Hi Sahil,\n\n'+message+'\n\n'+name)}`;q('#form-status').textContent='Your email draft is ready. If no app opened, use the email address above.';});
  // One reversible animation context makes pausing reveal all content and removes scroll pinning.
  if(!window.gsap||!window.ScrollTrigger)return;const {gsap,ScrollTrigger}=window;gsap.registerPlugin(ScrollTrigger);let context=null,first=true;
- function motion(paused){context?.revert();context=null;if(paused)return;
+ function motion(paused){context?.revert();context=null;q('.personal-journey')?.classList.remove('journey-motion');if(paused)return;
   context=gsap.context(()=>{
-   if(first){gsap.from('.title-line',{yPercent:80,opacity:0,rotate:3,duration:1.2,stagger:.11,ease:'power4.out'});gsap.from('.hero-intro,.hero-top,.page-intro,.case-intro,.contact-page>div,.lab-heading',{y:25,opacity:0,duration:.9,delay:.15,ease:'power3.out'});first=false;}
+   if(first){if(q('.title-line'))gsap.from('.title-line',{yPercent:80,opacity:0,rotate:3,duration:1.2,stagger:.11,ease:'power4.out'});gsap.from('.hero-intro,.hero-top,.page-intro,.case-intro,.contact-page>div,.lab-heading',{y:25,opacity:0,duration:.9,delay:.15,ease:'power3.out'});first=false;}
    gsap.utils.toArray('.section-heading,.about-teaser>div,.career,.story-block,.values-grid article,.about-story').forEach(el=>gsap.from(el,{y:45,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}}));
    const desktop=matchMedia('(min-width:900px)').matches;
+   const journey=q('.personal-journey');
+   if(journey&&desktop&&innerHeight>=650){
+    journey.classList.add('journey-motion');
+    const sequence=gsap.timeline({scrollTrigger:{trigger:journey,start:'top 100px',end:()=>'+='+Math.max(innerWidth*2,2200),pin:'.journey-pin',scrub:1,snap:{snapTo:.5,duration:{min:.2,max:.5},delay:.15,ease:'power1.inOut'},anticipatePin:1,invalidateOnRefresh:true}});
+    sequence.to('.journey-track',{xPercent:-66.666667,ease:'none',duration:3},0)
+     .to('.journey-progress>span',{scaleX:1,ease:'none',duration:3},0)
+     .fromTo('.identity-card',{rotate:-9},{rotate:5,ease:'none',duration:1},0)
+     .fromTo('.system-card',{rotate:8},{rotate:-4,ease:'none',duration:1},1)
+     .fromTo('.curiosity-card',{rotate:-7},{rotate:4,ease:'none',duration:1},2);
+   }
+   gsap.utils.toArray('.note-card').forEach((el,i)=>gsap.from(el,{y:45,rotate:i%2?2:-2,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}}));
+   gsap.utils.toArray('.location-radar,.curiosity-ring').forEach(el=>gsap.to(el,{rotation:25,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}}));
+   if(desktop&&q('.hero')){gsap.to('.hero-heading',{y:-60,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});}
    if(q('.stack-story')&&desktop){const t=gsap.timeline({scrollTrigger:{trigger:'.stack-story',start:'top top',end:'+=1500',scrub:1,pin:'.stack-pin',anticipatePin:1,invalidateOnRefresh:true}});
     t.fromTo('.stack-assembly',{rotateZ:-27,rotateX:52},{rotateZ:-12,rotateX:35,duration:3},0)
      .to('.ui-plane',{z:230,y:-125,duration:2},0).to('.data-plane',{z:-230,y:125,duration:2},0)
      .fromTo('[data-stack-step="1"],[data-stack-step="2"]',{opacity:.28},{opacity:1,stagger:1,duration:.7},.5)
      .to('.ui-plane',{z:100,y:-85,duration:1},3).to('.data-plane',{z:-100,y:85,duration:1},3);
    }
-   if(desktop){gsap.to('.selected-grid .project-card:nth-child(2)',{y:-65,ease:'none',scrollTrigger:{trigger:'.selected-grid',start:'top bottom',end:'bottom top',scrub:1}});gsap.to('.signature-art',{rotate:7,ease:'none',scrollTrigger:{trigger:'.about-teaser',start:'top bottom',end:'bottom top',scrub:1}});}
+   if(desktop&&q('.selected-grid')){gsap.to('.selected-grid .project-card:nth-child(2)',{y:-65,ease:'none',scrollTrigger:{trigger:'.selected-grid',start:'top bottom',end:'bottom top',scrub:1}});gsap.to('.signature-art',{rotate:7,ease:'none',scrollTrigger:{trigger:'.about-teaser',start:'top bottom',end:'bottom top',scrub:1}});}
   });ScrollTrigger.refresh();
  }
  window.portfolioMotion?.subscribe(motion);let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>motion(window.portfolioMotion?.paused),250);});document.fonts.ready.then(()=>ScrollTrigger.refresh());

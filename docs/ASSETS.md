@@ -36,3 +36,14 @@ Cross-document navigation was checked against [Chrome’s official View Transiti
 - GSAP and ScrollTrigger 3.13.0: official npm distribution mirrored by jsDelivr; original header notices retained and license link included in `GSAP-NOTICE.txt`.
 - Design research: https://dennissnellenberg.com/ (clear portfolio navigation), https://lusion.co/ (motion-led storytelling), https://bruno-simon.com/ (interactive 3D with controls). These informed principles; no layouts or protected visual assets were copied.
 - Prior Figma-created sculpture remains the first-paint/no-JavaScript fallback. Mobbin access remained unavailable under the connected subscription; no Mobbin assets were downloaded or claimed.
+
+## Personal chapters and glass surfaces
+
+Original components added in the next refinement: a personal identity badge, three scroll chapters, a layered profile card and a personal bento layout. No third-party layout or artwork was copied.
+
+Research references:
+- GSAP ScrollTrigger documentation and official horizontal-scroll examples: https://gsap.com/docs/v3/Plugins/ScrollTrigger/ and https://codepen.io/GreenSock/pen/GRxYebY
+- Awwwards presentation on mixed horizontal/vertical scrolling and personality in interaction: https://assets.awwwards.com/assets/files/live-presentation.pdf
+- Apple material guidance on hierarchy, legibility and restraint: https://developer.apple.com/design/human-interface-guidelines/materials
+
+These are adapted design principles for the web, not an implementation of Apple's native Liquid Glass APIs. CSS backdrop-filter creates the glass appearance. Solid-color fallbacks preserve legibility when transparency is reduced or blur is unsupported.

@@ -26,3 +26,12 @@ Reviewed in the managed Chrome preview on 21 November 2026:
 This browser has WebGL disabled. The live software-rendered 3D path was exercised. The hardware WebGL path uses the same geometry and state, but its GPU rendering has not been visually verified in this environment. It should be checked on a WebGL2-capable device before claiming complete cross-device coverage.
 
 Mobile review used a narrow browser iframe, not a physical phone. OS reduced-motion and blocked-storage behavior are covered by unit tests; no blanket accessibility certification or Lighthouse score is claimed. Contact draft behavior is implemented with `mailto:` and no message was sent.
+
+## Personal/glass refinement
+
+- Desktop: reviewed identity badge, readable frosted navigation, first chapter, intermediate horizontal movement, and About bento cards.
+- Scroll chapters use a pinned native-scroll timeline with chapter snapping; small and short screens fall back to a vertical layout.
+- Motion pause was verified in the browser: the `journey-motion` class disappeared and chapter positions became sequential vertical blocks. Resuming restored the pinned mode.
+- Mobile preview: Home and About document widths settled at 375px with equal scroll width. Menu opened with underlying content inert and navigated to About.
+- Real photos were not available in the supplied résumé. The configured portrait slot is honored; the current fallback is a clearly graphic SR monogram, not an invented likeness.
+- Existing 19 regression tests passed. HTML, references, assets, source syntax and deterministic regeneration were checked again.

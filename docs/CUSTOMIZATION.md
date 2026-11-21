@@ -47,3 +47,11 @@ The `experience` array in `content/profile.json` now populates the Experience pa
 Project `category` accepts `professional`, `software` or `experiments`. `visual` also accepts `bonton`. Set `cover` to your own local image to replace conceptual artwork. For a new project, choose `visual: "custom"`, a unique slug and a real description. Avoid including confidential employer code or data.
 
 Typography, page layout and breakpoint rules are in `dist/styles.css`. Runtime animation lives in `dist/app.js` and `dist/sculpture.js`; these files are authored directly and are not overwritten by the HTML build.
+
+## Personal identity and scroll chapters
+
+The identity badge uses the name, role and location from `content/profile.json`. The layered identity card automatically uses `portrait`, `portraitAlt` and `portraitPosition` from that same file; until a real photo is configured, it shows an original SR monogram.
+
+`scripts/personal.mjs` contains the three personal chapters and About-page notes. `dist/personal.css` contains glass styling and responsive variants. `dist/personal.js` handles pointer-following highlights. No new external image, font or library dependency is required.
+
+Desktop screens at least 900px wide and 650px high receive the pinned horizontal sequence. Smaller viewports, JavaScript-free pages and paused/reduced-motion preferences use stacked chapters. The global motion control disables the pinning and decorative animation.

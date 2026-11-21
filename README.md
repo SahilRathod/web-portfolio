@@ -30,6 +30,10 @@ node --test tests/*.test.*
 
 Use Node 22 or newer. Commit content edits together with the regenerated HTML. See [CUSTOMIZATION](docs/CUSTOMIZATION.md).
 
+## Personal identity
+
+A profile badge introduces Sahil by name. Three scroll chapters connect customer-support roots, full-stack work and personal curiosity. The About page adds glass cards for location, languages, local AI and a people-first approach. The existing portrait setting replaces the SR identity artwork when a real photo is added.
+
 ## Motion architecture
 
 - `dist/app.js`: native navigation, mobile menu, search/filter, contact drafts and reversible GSAP/ScrollTrigger timelines.

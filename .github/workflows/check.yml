@@ -12,6 +12,6 @@ jobs:
           node-version: '22'
       - run: node scripts/build.mjs
       - run: git diff --exit-code -- dist
-      - run: node --check dist/software-renderer.js && node --check dist/sculpture.js && node --check dist/app.js && node --check dist/atlas.js && node --check dist/motion.js && node --check dist/motion-preference.js
+      - run: node --check scripts/personal.mjs && node --check dist/personal.js && node --check dist/software-renderer.js && node --check dist/sculpture.js && node --check dist/app.js && node --check dist/atlas.js && node --check dist/motion.js && node --check dist/motion-preference.js
       - run: node scripts/check.mjs
       - run: node --test tests/*.test.*
