@@ -35,3 +35,20 @@ Mobile review used a narrow browser iframe, not a physical phone. OS reduced-mot
 - Mobile preview: Home and About document widths settled at 375px with equal scroll width. Menu opened with underlying content inert and navigated to About.
 - Real photos were not available in the supplied résumé. The configured portrait slot is honored; the current fallback is a clearly graphic SR monogram, not an invented likeness.
 - Existing 19 regression tests passed. HTML, references, assets, source syntax and deterministic regeneration were checked again.
+
+## Espresso / continuous-scroll update — 23 November 2026
+
+- 23 Node tests pass, including forward/backward scroll-path interpolation,
+  endpoint clamping and duplicate-anchor handling.
+- All 11 generated pages pass link, title, ID, asset and size-budget checks.
+- Desktop browser: warm sculpture visible in the hero, through the story and
+  at the footer; no horizontal overflow. The pause toggle removes pin spacers,
+  returns the sculpture to the hero, and displays all text at full fill.
+- Narrow-screen QA used a 390px iframe (375px content width with scrollbar):
+  no horizontal overflow, readable hero, working mobile menu and navigation.
+  The mobile statement showed two fully filled lines and a partially filled
+  final line (9.6052%), verifying that filling follows scroll position.
+- The test browser uses the Canvas2D fallback. Hardware WebGL appearance was
+  not independently verified. Device performance will vary; motion can be
+  paused and system reduced-motion preferences remain respected.
+- No portrait has been supplied, so photo integration remains pending.

@@ -47,3 +47,13 @@ Research references:
 - Apple material guidance on hierarchy, legibility and restraint: https://developer.apple.com/design/human-interface-guidelines/materials
 
 These are adapted design principles for the web, not an implementation of Apple's native Liquid Glass APIs. CSS backdrop-filter creates the glass appearance. Solid-color fallbacks preserve legibility when transparency is reduced or blur is unsupported.
+
+## Espresso and cream edition
+
+The user selected the published Color Hunt palette at
+https://colorhunt.co/palette/f8f4e1af8f6f74512d543310 on 23 November 2026:
+cream `#F8F4E1`, bronze `#AF8F6F`, roasted brown `#74512D`, espresso `#543310`.
+`espresso.css` applies these colours, translucent versions and neutral surface
+blends across the interface. Project illustrations retain their own identities.
+The procedural sculpture uses the same warm materials. No purchased models or
+stock portraits are needed or represented as the user's likeness.

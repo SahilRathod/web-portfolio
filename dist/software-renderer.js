@@ -2,7 +2,7 @@ import {Vector3,Matrix3} from './vendor/three.module.min.js';
 // A small painter's-algorithm renderer preserves the interactive sculpture on
 // browsers with no WebGL. The same geometry, transforms and controls are reused.
 export class SoftwareRenderer{
- constructor(canvas){this.canvas=canvas;this.ctx=canvas.getContext('2d');this.ratio=1;this.width=1;this.height=1;this.last=0;}
+ constructor(canvas){this.canvas=canvas;this.ctx=canvas.getContext('2d');this.ratio=1;this.width=1;this.height=1;this.last=0;this.shadow=true;}
  setPixelRatio(ratio){this.ratio=Math.min(ratio,1.25);}
  setClearColor(){}
  setSize(w,h){this.width=w;this.height=h;this.canvas.width=Math.round(w*this.ratio);this.canvas.height=Math.round(h*this.ratio);this.canvas.style.width=w+'px';this.canvas.style.height=h+'px';}
@@ -22,7 +22,7 @@ export class SoftwareRenderer{
     faces.push({a,b,c,z:(a.z+b.z+c.z)/3,color:`rgb(${shade(rgb.r)},${shade(rgb.g)},${shade(rgb.b)})`});
    }
   });
-  const shadow=ctx.createRadialGradient(w*.5,h*.82,2,w*.5,h*.82,w*.23);shadow.addColorStop(0,'rgba(16,32,25,.14)');shadow.addColorStop(1,'rgba(16,32,25,0)');ctx.save();ctx.translate(0,h*.68);ctx.scale(1,.18);ctx.fillStyle=shadow;ctx.fillRect(0,0,w,h);ctx.restore();
+  if(this.shadow){const shadow=ctx.createRadialGradient(w*.5,h*.82,2,w*.5,h*.82,w*.23);shadow.addColorStop(0,'rgba(16,32,25,.14)');shadow.addColorStop(1,'rgba(16,32,25,0)');ctx.save();ctx.translate(0,h*.68);ctx.scale(1,.18);ctx.fillStyle=shadow;ctx.fillRect(0,0,w,h);ctx.restore();}
   faces.sort((a,b)=>a.z-b.z);for(const f of faces){ctx.beginPath();ctx.moveTo(f.a.x,f.a.y);ctx.lineTo(f.b.x,f.b.y);ctx.lineTo(f.c.x,f.c.y);ctx.closePath();ctx.fillStyle=f.color;ctx.fill();ctx.strokeStyle=f.color;ctx.lineWidth=.5;ctx.stroke();}
  }
 }

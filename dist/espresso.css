@@ -1,0 +1,26 @@
+/* User-selected published palette: https://colorhunt.co/palette/f8f4e1af8f6f74512d543310 */
+:root{--paper:#F8F4E1;--ink:#543310;--muted:#74512D;--blue:#74512D;--lime:#F8F4E1;--line:#AF8F6F;--dark:#543310;--bronze:#AF8F6F}
+body{background:var(--paper)}
+.site-header{background:#f8f4e1df;border-color:#af8f6f55;box-shadow:0 8px 40px #5433100d}
+.hero h1 em,.page-title em{background:none;color:var(--blue);animation:none}
+.glass-panel{background:linear-gradient(135deg,#f8f4e1d4,#f8f4e172);border-color:#f8f4e1;box-shadow:0 12px 40px #54331010,inset 0 1px 0 #fff9}
+.hero-intro,.object-label{background:#f8f4e1cb;border-color:#af8f6f66}
+.identity-seal{background:var(--ink);color:var(--paper)}
+.ticker{background:#af8f6f;color:#543310}
+.personal-journey{background:#e9dfca}.personal-notes{background:linear-gradient(125deg,#e9dfca,#af8f6f80,#f8f4e1)}
+.identity-aura{background:radial-gradient(circle,#af8f6f,#af8f6f65 40%,transparent 70%)}
+.system-halo{border-color:#af8f6f}.ring-two{border-color:var(--bronze)}.note-location{background:linear-gradient(135deg,#f8f4e1e6,#f8f4e18c)}
+.note-symbol,.location-radar b,.hello-stack>span:nth-child(3){color:var(--blue)}
+.stack-story,.lab-hero{background:var(--ink)}
+.stack-copy>p:not(.eyebrow),.stack-steps p,.scene-bottom,.lab-heading>p:last-child,.lab-hint{color:var(--paper)}
+.api-plane,.lab-workbench{background:#74512d;color:var(--paper)}.lab-workbench{border-color:var(--bronze)}
+.data-plane{background:var(--bronze)}.data-grid i{background:var(--paper);border-color:var(--blue)}.ui-plane{background:var(--paper)}
+.mini-orb{background:radial-gradient(circle at 30% 25%,#f8f4e1,#af8f6f 35%,#543310 80%);box-shadow:10px 15px 30px #54331030}
+.lab-console select,.lab-workbench .object-label{background:#543310;color:var(--paper);border-color:var(--bronze)}.lab-console select option{background:#543310}
+.lab-workbench .object-caption{color:var(--paper)}
+.contact-cta{background:var(--ink)}.contact-cta .giant-link>span:not(.asterisk){color:var(--bronze)}
+.portrait{background:var(--ink)}.values-section{background:#e9dfca}
+.contact-page form{background:linear-gradient(130deg,#f8f4e1,#af8f6f26);border-color:#af8f6f66}
+.sculpture-fallback{filter:sepia(1) saturate(.65)}
+@media(max-width:760px){.site-header nav{background:#f8f4e1fa}}
+@media(prefers-reduced-transparency:reduce){.glass-panel,.hero-intro,.object-label,.site-header{background:var(--paper)}}

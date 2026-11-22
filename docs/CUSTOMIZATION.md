@@ -55,3 +55,24 @@ The identity badge uses the name, role and location from `content/profile.json`.
 `scripts/personal.mjs` contains the three personal chapters and About-page notes. `dist/personal.css` contains glass styling and responsive variants. `dist/personal.js` handles pointer-following highlights. No new external image, font or library dependency is required.
 
 Desktop screens at least 900px wide and 650px high receive the pinned horizontal sequence. Smaller viewports, JavaScript-free pages and paused/reduced-motion preferences use stacked chapters. The global motion control disables the pinning and decorative animation.
+
+### Continuous homepage sculpture and text
+
+- `dist/scroll-scene.js` maps real section positions to the object's viewport
+  position, scale, rotation and layer separation. The same object travels from
+  the hero to the footer, and the path reverses when scrolling upward.
+- `dist/scroll-path.js` provides deterministic, clamped interpolation.
+- `dist/scroll-story.css` contains the fixed canvas and text-mask presentation.
+- `dist/app.js` animates heading words and fills the three-line statement as the
+  reader scrolls. Text remains present for assistive technology and without JS.
+- `dist/espresso.css` contains the user-selected Color Hunt palette.
+
+The motion toggle and OS reduced-motion preference restore a static hero scene,
+remove pinned sections, and show all heading words and text fills immediately.
+No mouse-wheel interception is used. The scene shrinks at dense content and on
+mobile to keep links and text usable; its canvas never captures clicks.
+
+The résumé contains no portrait. `content/profile.json` still has `portrait:null`.
+Set the existing portrait fields after a real photo is supplied; the image will
+appear in the story card and About page. Initials are intentionally retained
+until then, rather than using a stock person or a generated likeness.

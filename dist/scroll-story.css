@@ -1,0 +1,22 @@
+/* End-to-end sculpture choreography and visible text motion. */
+.home-scroll-scene{position:fixed!important;inset:0!important;width:100%!important;height:100dvh!important;margin:0!important;z-index:8;pointer-events:none;contain:strict}
+.home-scroll-scene .object-label,.home-scroll-scene .object-caption,.home-scroll-scene .sculpture-fallback{display:none}
+.home-scroll-scene.scene-static{position:absolute!important;inset:0!important;height:100%!important;z-index:1}
+.sculpture-placeholder{pointer-events:none}
+.menu-open .home-scroll-scene{visibility:hidden}
+.scroll-manifesto{min-height:110svh;display:flex;align-items:center;background:var(--ink);color:var(--paper);position:relative;padding:110px 0}
+.scroll-manifesto>.wrap{position:relative;z-index:9;pointer-events:none}
+.scroll-manifesto h2{font-size:clamp(52px,6.6vw,106px);line-height:1.12;letter-spacing:-.065em;margin:45px 0;width:70%}
+.manifesto-note{font-size:16px;color:var(--bronze)}
+.fill-line{display:table;background-image:linear-gradient(90deg,var(--paper),var(--paper));background-repeat:no-repeat;background-size:var(--text-fill,100%) 100%;background-clip:text;-webkit-background-clip:text;color:#af8f6f60}
+.word-mask{display:inline-block;overflow:clip;vertical-align:bottom;padding-bottom:.12em;margin-bottom:-.12em;line-height:1.14}
+.word-mask>span{display:inline-block;will-change:transform}
+.hero h1 .outlined{background-image:linear-gradient(var(--ink),var(--ink));background-repeat:no-repeat;background-size:var(--outline-fill,100%) 100%;background-clip:text;-webkit-background-clip:text}
+.motion-paused .fill-line{--text-fill:100%!important}.motion-paused .outlined{--outline-fill:100%!important}
+.motion-paused .word-mask>span{transform:none!important;opacity:1!important}
+@media(min-width:900px){body[data-page="index.html"] #selected-work{padding-right:65px}.scroll-manifesto h2{width:72%}}
+@media(max-width:899px){.scroll-manifesto{min-height:100svh;padding:80px 0 180px}.scroll-manifesto h2{width:100%;font-size:clamp(45px,8.5vw,76px);margin:35px 0}.manifesto-note{max-width:28ch;font-size:14px}}
+@media print{.home-scroll-scene,.sculpture-placeholder{display:none!important}.fill-line{background:none;color:inherit}.scroll-manifesto{min-height:0;padding:40px 0;background:white;color:black}}
+
+.hero-heading,.hero-intro,.hero-identity{z-index:10}
+.manifesto-note{color:var(--paper)}
